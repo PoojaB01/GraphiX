@@ -7,6 +7,12 @@
   pointer-events: none;
 }
 
+.App-graph {
+  height: 500px;
+  width: 100%;
+  background-color: grey;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -26,6 +32,19 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.App-node {
+  position: absolute;
+  color: black;
+  background-color: white;
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {
