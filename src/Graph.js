@@ -30,8 +30,9 @@ class Graph extends Component {
     }
     render() {
         return (
-            <div className="App-graph" onClick ={(event) => this.makeVertex(event)}>
+            <div className = "App-graph">
                 Graph
+                <div className = "transparent" onClick = {(event) => this.makeVertex(event)}></div>
                 {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
             </div>
         )
