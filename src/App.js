@@ -7,11 +7,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <heading>
+        <header>
           GraphiX
-        </heading>
+        </header>
         <p> The free graph learning location.</p>
         <Graph />
+
       </header>
     </div>
   );

@@ -10,30 +10,34 @@ class Graph extends Component {
             count: 0,
         };
     }
-    nodes = [];
+
     makeVertex(event)
     {
         console.log(event.clientX);
         console.log(event.clientY);
-        const newNodeList = [
-            ...this.state.nodes,
-            {
-                id: this.state.count + 1,
+        
+        this.setState({
+            nodes: this.state.nodes.concat({
+                id: this.state.nodes.length + 1,
                 offsetX: event.clientX,
                 offsetY: event.clientY,
-            }
-        ];
-        this.setState({
-            nodes: newNodeList,
+            }),
             count: this.state.count + 1,
+        }, () => {
+            console.log(this.state.nodes, this.state.count);
+            console.log(event);
         });
     }
+
     render() {
         return (
             <div className = "App-graph">
                 Graph
-                <div className = "transparent" onClick = {(event) => this.makeVertex(event)}></div>
+                <div className = "transparent" onClick = {(event) => {
+                    console.log(event.currentTarget.classList);
+                    this.makeVertex(event)}}></div>
                 {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
+                
             </div>
         )
     }

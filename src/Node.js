@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Draggable from 'react-draggable';
+import LineTo from 'react-lineto'
 
 export class Node extends Component {
     constructor(props)
@@ -16,7 +17,7 @@ export class Node extends Component {
     render() {
         return (
             <Draggable>
-                <div className = 'App-node' style = {this.state.nodeStyle}>
+                <div id = 'App-node' className = {this.props.node.id} style = {this.state.nodeStyle}>
                     {this.props.node.id} 
                 </div>
             </Draggable>

@@ -44,7 +44,7 @@
   color: #61dafb;
 }
 
-.App-node {
+#App-node {
   position: absolute;
   color: black;
   background-color: white;
