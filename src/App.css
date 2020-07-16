@@ -7,20 +7,29 @@
   pointer-events: none;
 }
 
-.App-graph {
-  height: 500px;
+.App-navigate {
+  min-height: 500px;
   width: 100%;
   background-color: grey;
   z-index: 1;
 }
 
-.App-graph .transparent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #282c3400;
-  height: 100%;
+.App-graph{
+  min-height: 470px;
   width: 100%;
+  background-color: grey;
+  z-index: 1;
+}
+
+.App-graph {
+  position: absolute;
+  background-color: #282c3400;
+}
+
+.transparent{
+  position: absolute;
+  width: 100%;
+  height: 470px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Graph from './Graph.js'
+import ToNavigate from './ToNavigate.js'
 
 function App() {
   return (
@@ -11,8 +10,7 @@ function App() {
           GraphiX
         </header>
         <p> The free graph learning location.</p>
-        <Graph />
-
+        <ToNavigate />
       </header>
     </div>
   );

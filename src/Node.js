@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import Draggable from 'react-draggable';
-import LineTo from 'react-lineto'
 
-export class Node extends Component {
+class Node extends Component {
     constructor(props)
     {
         super(props);
         this.state = {
             nodeStyle: {
                 position: 'absolute',
-                top : this.props.node.offsetY - 30,
+                top : this.props.node.offsetY - 30 - 200,
                 left : this.props.node.offsetX - 30,
             }
         }
