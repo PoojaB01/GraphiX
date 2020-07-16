@@ -8,7 +8,7 @@ class Node extends Component {
         this.state = {
             nodeStyle: {
                 position: 'absolute',
-                top : this.props.node.offsetY - 30 - 200,
+                top : this.props.node.offsetY - 30 - 150,
                 left : this.props.node.offsetX - 30,
             }
         }

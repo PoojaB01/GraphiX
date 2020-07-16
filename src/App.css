@@ -1,4 +1,5 @@
 .App {
+  overflow: hidden;
   text-align: center;
 }
 
@@ -8,28 +9,20 @@
 }
 
 .App-navigate {
-  min-height: 500px;
-  width: 100%;
   background-color: grey;
   z-index: 1;
 }
 
 .App-graph{
-  min-height: 470px;
-  width: 100%;
-  background-color: grey;
+  padding: 20px;
+  background-color: rgb(31, 88, 114);
   z-index: 1;
 }
 
-.App-graph {
-  position: absolute;
-  background-color: #282c3400;
-}
-
 .transparent{
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 470px;
+  height: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -40,7 +33,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,4 +67,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.grid-container {
+  display: grid;
+}
+.grid-item {
+}
+
+.App-body {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  grid-template-columns: 1fr 5fr;
+}
+
+.App-edge {
+  position: absolute;
+  z-index: -1;
 }

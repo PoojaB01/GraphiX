@@ -80,30 +80,30 @@ class Graph extends Component {
         let va2 = this.props.val2;
         if(va === 0 & va2===0){
             return (
-                <div className = "App-graph" onClick = {(event) => {console.log(this.props.val);
+                <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
                     console.log(event.target.classList)}}>
                     <div className = "transparent"></div>
                     {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                    {this.state.edges.map((edge, index) => <Edge key={index} ed={edge} />)}
+                    {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
                 </div>
             )
         }
         else{
             if(va ===1  & va2===0){
                 return (
-                    <div className = "App-graph">
+                    <div className = "App-graph" id = 'graph'>
                         <div className = "transparent" onClick = {(event) => {this.makeVertex(event)}}></div>
                         {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                        {this.state.edges.map((edge, index) => <Edge key={index} ed={edge} />)}
+                        {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
                     </div>
                 )
             }
             else{
                 return (
-                    <div className = "App-graph" onClick = {(event) => {this.addEdge(event)}}>
+                    <div className = "App-graph" id = 'graph' onClick = {(event) => {this.addEdge(event)}}>
                         <div className = "transparent"></div>
                         {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                        {this.state.edges.map((edge, index) => <Edge key={index} ed={edge} />)}
+                        {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
                     </div>
                 )
             }

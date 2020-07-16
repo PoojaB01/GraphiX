@@ -54,14 +54,17 @@ class ToNavigate extends Component {
         let va = this.state.VertexDraw;
         let va2 = this.state.EdgeDraw;
         return (
-            <div className = "App-navigate">
-                <button onClick = {(event) => {
-                    this.drawVertex(event)
-                }}> Draw vertex</button>
-                <button onClick = {(event) => {
-                    this.drawEdge(event)
-                }}>Draw Edge</button>
-                <Graph val={va} val2={va2} />
+            <div className = "grid-container App-body">
+                <div className = "App-navigate grid-item">
+                    <button onClick = {(event) => {
+                        this.drawVertex(event)
+                    }}> Draw vertex</button>
+                    <br></br>
+                    <button onClick = {(event) => {
+                        this.drawEdge(event)
+                    }}>Draw Edge</button>
+                </div>
+                <Graph className = "App-graph grid-item" val={va} val2={va2} />
             </div>
         );
     }

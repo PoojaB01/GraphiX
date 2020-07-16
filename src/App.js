@@ -9,8 +9,7 @@ function App() {
         <header>
           GraphiX
         </header>
-        <p> The free graph learning location.</p>
-        <ToNavigate />
+        <ToNavigate className = "App-navigate" />
       </header>
     </div>
   );
