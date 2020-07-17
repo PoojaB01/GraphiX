@@ -9,11 +9,12 @@ class Edge extends Component {
         super(props);
         this.state = {
             class1: this.props.ed.class1.my_class,
-            class2: this.props.ed.class1.my_class,
+            class2: this.props.ed.class2.my_class,
         }
     }
 
     render() {
+        console.log('xyz' + this.props.ed.class1.my_class + '***' + this.props.ed.class2.my_class + '***')
         return (
             <div>
                 <LineTo className = 'App-edge' from = {this.props.ed.class1.my_class} to = {this.props.ed.class2.my_class} borderColor='#ffffff' 
