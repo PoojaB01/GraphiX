@@ -11,8 +11,6 @@ class Graph extends Component {
             count: 0,
             val: this.props.val,
             val2: this.props.val2,
-            // val3: this.props.val3,
-            // val3: this.props.vax3,
             val3: 0,
 
             u1: this.props.v1,
@@ -21,11 +19,10 @@ class Graph extends Component {
             currentVertexSelected: []
         };
     }
-    makeVertex(event)
-    {
-        console.log(event.clientX);
-        console.log(event.clientY);
-        console.log(this.state.val);
+    makeVertex(event){
+        // console.log(event.clientX);
+        // console.log(event.clientY);
+        // console.log(this.state.val);
         
         this.setState({
             nodes: this.state.nodes.concat({
@@ -36,7 +33,6 @@ class Graph extends Component {
             count: this.state.count + 1,
         }, () => {
             console.log(this.state.nodes, this.state.count);
-            // console.log(event);
         });
     }
 
@@ -56,9 +52,6 @@ class Graph extends Component {
     }
 
     addEdge2(){
-        // console.log(this.state.edges);
-        // console.log(this.state.currentVertexSelected);
-        // console.log(this.state.nodes);
         if(this.state.currentVertexSelected.length > 1){
             this.setState({
                 edges: this.state.edges.concat({
@@ -71,9 +64,6 @@ class Graph extends Component {
 
     addEdge(event){
         let l = event.target.classList[0];
-        // console.log('f' + l + typeof(l));
-        console.log('f')
-        console.log(event.target.classList);
         if( l === 'transparent' || l === 'App-edge'){
         }
         else{
@@ -81,47 +71,29 @@ class Graph extends Component {
                 currentVertexSelected: this.state.currentVertexSelected.concat({
                     my_class: l,
                 })
-            }, () => this.addEdge2())
-        }
-        
-    }
-
-    // reset = (event) => {
-    //     // this.setState({
-    //     //     u1: 0,
-    //     //     u2: 0,
-    //     //     val3: 0
-    //     // })
-
-    //     // console.log(this.state.Vs1 + '---' + this.state.Vs2)
-    // }
-
-    addEdgeOnInput2(event){
-        this.setState({
-            currentVertexSelected: this.state.currentVertexSelected.concat({
-                my_class: this.props.v2,
-            }),
-            val3 : 1
-        }, 
-        () => this.addEdge2())
-    }
-    // componentWillReceiveProps(nextProps) {
-    //     console.log('componentWillReceiveProps', nextProps);
-    //     this.setState(nextProps);
-    // }
+            }, () => {
+                this.addEdge2();
+                // console.log(this.state.currentVertexSelected);
+                // console.log(this.state.edges);
+            })
+        } 
+    }    
+    
     componentWillReceiveProps(nextProps) {
-            // console.log('adding' + this.props.v1 + ' ' + this.props.v2)
-            // class2: {my_class: "2"}
-            if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1)
-            {
-                console.log("****I was called*****")
+            if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1){
                 this.setState({
-                    currentVertexSelected: this.state.currentVertexSelected.concat({
-                        my_class: this.props.v1,
-                    }
-                    ),
-                    val3 : this.props.vax3 
-                }, () => this.addEdgeOnInput2())
+                    currentVertexSelected: this.state.currentVertexSelected.concat([
+                        {
+                            my_class: this.props.v1,
+                        },
+                        {
+                            my_class: this.props.v2,
+                        }
+                    ]),
+                    val3 : this.props.vax3,
+                }, () => {
+                    this.addEdge2();
+                })
             }
     }
     
@@ -133,18 +105,8 @@ class Graph extends Component {
         let y = this.props.v2;
         let s = this.state.nodes.length;
 
-        console.log(this.props.vax3 + ' ' + this.state.val3)
-        console.log(this.props.v1 + 'haaaaaa' + this.state.u1)
-
         if(va === 0 & va2===0){
-            // if(x>0 & y>0 & x<=s & y<=s & this.state.val3 === 1) {
-            //     console.log('OK')
-            //     this.addEdgeOnInput();
-            //     this.setState({
-            //         val3: 0
-            //     })
-            // }
-            console.log('OK2')
+            // console.log('OK2')
             return (
                 <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
                     console.log(event.target.classList)}}>
@@ -156,7 +118,7 @@ class Graph extends Component {
         }
         else{
             if(va ===1  & va2===0){
-                console.log('OK3')
+                // console.log('OK3')
                 return (
                     <div className = "App-graph" id = 'graph'>
                         <div className = "transparent" onClick = {(event) => {this.makeVertex(event)}}></div>
@@ -166,7 +128,7 @@ class Graph extends Component {
                 )
             }
             else{
-                console.log('OK4')
+                // console.log('OK4')
                 return (
                     <div className = "App-graph" id = 'graph' onClick = {(event) => {this.addEdge(event)}}>
                         <div className = "transparent"></div>

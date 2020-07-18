@@ -59,6 +59,8 @@ class ToNavigate extends Component {
             Vt1: event.target.value,
             EdgeDraw: 0,
             VertexDraw: 0,
+        }, ()=>{
+            console.log(this.state);
         })
     }
 
@@ -67,39 +69,23 @@ class ToNavigate extends Component {
             Vt2: event.target.value,
             EdgeDraw: 0,
             VertexDraw: 0,
+        }, ()=>{
+            console.log(this.state);
         })
     }
 
-    // reset = (event) => {
-    //     this.setState({
-    //         Vt1: 0,
-    //         Vt2: 0,
-    //     })
-
-    //     console.log(this.state.Vs1 + '---' + this.state.Vs2)
-    // }
-
-    inputEdge = (event) => {
+    inputEdge(event){
+        event.preventDefault();
         this.setState({
             Vs1: this.state.Vt1,
             Vs2: this.state.Vt2,
             EdgeDraw: 0,
             VertexDraw: 0,
             AddEdge: 1
-        },
-        // console.log(this.state.Vs1 + '---' + this.state.Vs2),
-        // () => this.reset()
-        )
-
-        
-        event.preventDefault()
+        }, ()=>{
+            console.log(this.state);
+        })
     }
-
-    componentWillReceiveProps(){ //this is called to before render method
-        this.setState({
-           value:this.props.data
-         })
-        }
 
     render() { 
 
@@ -108,8 +94,6 @@ class ToNavigate extends Component {
         let va3 = this.state.AddEdge;
         let v1 = this.state.Vs1;
         let v2 = this.state.Vs2;
-
-        console.log(this.state.Vs1 + '@' + this.state.Vs2)
 
         return (
             <div className = "grid-container App-body">
@@ -122,9 +106,7 @@ class ToNavigate extends Component {
                         this.drawEdge(event)
                     }}>Draw Edge</button>
                     <br></br>
-                    {/* <p>Input edge</p>
-                    <br></br> */}
-                    <form onSubmit = {this.inputEdge}>
+                    <form onSubmit = {(event) => this.inputEdge(event)}>
                         <label>Vertex1</label>
                         <input type = 'number' value = {this.Vt1} onChange = {this.ChangeV1}></input>
                         <label>Vertex2</label>
