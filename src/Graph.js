@@ -13,7 +13,7 @@ class Graph extends Component {
             val2: this.props.val2,
             // val3: this.props.val3,
             // val3: this.props.vax3,
-            val3: 1,
+            val3: 0,
 
             u1: this.props.v1,
             u2: this.props.v2,
@@ -21,7 +21,6 @@ class Graph extends Component {
             currentVertexSelected: []
         };
     }
-
     makeVertex(event)
     {
         console.log(event.clientX);
@@ -102,27 +101,34 @@ class Graph extends Component {
             currentVertexSelected: this.state.currentVertexSelected.concat({
                 my_class: this.props.v2,
             }),
-            val3: 0
+            val3 : 1
         }, 
         () => this.addEdge2())
     }
-
-    addEdgeOnInput(event){
+    // componentWillReceiveProps(nextProps) {
+    //     console.log('componentWillReceiveProps', nextProps);
+    //     this.setState(nextProps);
+    // }
+    componentWillReceiveProps(nextProps) {
             // console.log('adding' + this.props.v1 + ' ' + this.props.v2)
             // class2: {my_class: "2"}
-            
-            this.setState({
-                currentVertexSelected: this.state.currentVertexSelected.concat({
-                    my_class: this.props.v1,
-                })
-            }, () => this.addEdgeOnInput2())
+            if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1)
+            {
+                console.log("****I was called*****")
+                this.setState({
+                    currentVertexSelected: this.state.currentVertexSelected.concat({
+                        my_class: this.props.v1,
+                    }
+                    ),
+                    val3 : this.props.vax3 
+                }, () => this.addEdgeOnInput2())
+            }
     }
     
 
     render() {
         let va = this.props.val;
         let va2 = this.props.val2;
-        let va3 = this.props.val3;
         let x = this.props.v1;
         let y = this.props.v2;
         let s = this.state.nodes.length;
@@ -131,33 +137,22 @@ class Graph extends Component {
         console.log(this.props.v1 + 'haaaaaa' + this.state.u1)
 
         if(va === 0 & va2===0){
-            if(x>0 & y>0 & x<=s & y<=s & this.state.val3 === 1) {
-                console.log('OK')
-                this.addEdgeOnInput();
-                return (
-                  
-                        
-                        <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
-                            console.log(event.target.classList)}}>
-                            <div className = "transparent"></div>
-                            {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                            {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
-                        </div>
-
-                )
-            }
-
-            else {
-                console.log('OK2')
-                return (
-                    <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
-                        console.log(event.target.classList)}}>
-                        <div className = "transparent"></div>
-                        {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                        {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
-                    </div>
-                )
-            }
+            // if(x>0 & y>0 & x<=s & y<=s & this.state.val3 === 1) {
+            //     console.log('OK')
+            //     this.addEdgeOnInput();
+            //     this.setState({
+            //         val3: 0
+            //     })
+            // }
+            console.log('OK2')
+            return (
+                <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
+                    console.log(event.target.classList)}}>
+                    <div className = "transparent"></div>
+                    {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
+                    {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
+                </div>
+            )
         }
         else{
             if(va ===1  & va2===0){

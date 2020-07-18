@@ -106,6 +106,8 @@ class ToNavigate extends Component {
         let va = this.state.VertexDraw;
         let va2 = this.state.EdgeDraw;
         let va3 = this.state.AddEdge;
+        let v1 = this.state.Vs1;
+        let v2 = this.state.Vs2;
 
         console.log(this.state.Vs1 + '@' + this.state.Vs2)
 
@@ -130,7 +132,7 @@ class ToNavigate extends Component {
                         <button type = 'submit'>Add edge (V1, V2)</button>
                     </form>
                 </div>
-                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} v1={this.state.Vs1} v2={this.state.Vs2}/>
+                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} v1={v1} v2={v2}/>
             </div>
         );
     }
