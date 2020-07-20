@@ -17,7 +17,7 @@ class Edge extends Component {
         return (
             <div>
                 <LineTo className = 'App-edge' from = {this.props.ed.class1.my_class} to = {this.props.ed.class2.my_class} borderColor='#ffffff' 
-                borderStyle='solid' borderWidth = '3px' zIndex = '-1'/>
+                borderStyle='solid' borderWidth = '3px'/>
             </div>
         );
     }

@@ -39,26 +39,26 @@ class Graph extends Component {
     addEdge3(){
         this.setState({
             currentVertexSelected: [],
-        })
-        // }, ()=>{
-        //     console.log(this.state.edges);
-        // console.log(this.state.currentVertexSelected);
-        // console.log(this.state.nodes);
-        // })
-
-        // console.log('*********');
-        // console.log(this.edges);
-        
+        }, () => {console.log(this.state);})
     }
 
     addEdge2(){
         if(this.state.currentVertexSelected.length > 1){
-            this.setState({
-                edges: this.state.edges.concat({
-                    class1: this.state.currentVertexSelected[0],
-                    class2: this.state.currentVertexSelected[1],
-                }),
-            }, () => this.addEdge3());
+            if(this.state.currentVertexSelected[0].my_class === this.state.currentVertexSelected[1].my_class){
+                this.setState({
+                    currentVertexSelected: [
+                        this.state.currentVertexSelected[0],
+                    ],
+                },()=>  {console.log(this.state);})
+            }
+            else{
+                this.setState({
+                    edges: this.state.edges.concat({
+                        class1: this.state.currentVertexSelected[0],
+                        class2: this.state.currentVertexSelected[1],
+                    }),
+                }, () => {this.addEdge3();});
+            }
         }
     }
 
@@ -73,40 +73,55 @@ class Graph extends Component {
                 })
             }, () => {
                 this.addEdge2();
-                // console.log(this.state.currentVertexSelected);
-                // console.log(this.state.edges);
             })
         } 
     }    
     
     componentWillReceiveProps(nextProps) {
-            if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1){
-                this.setState({
-                    currentVertexSelected: this.state.currentVertexSelected.concat([
-                        {
-                            my_class: this.props.v1,
+        if(this.props.val2 === 0){
+            this.setState({
+                currentVertexSelected: [],
+            }, ()=>{
+                console.log(this.state);
+            })
+        }
+
+        if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1 & 
+            !(this.props.v1 === this.props.v2)){
+            this.setState({
+                edges: this.state.edges.concat(
+                    {
+                        class1: {
+                            my_class:String(this.props.v1),
                         },
-                        {
-                            my_class: this.props.v2,
+                        class2: {
+                            my_class:String(this.props.v2),
                         }
-                    ]),
-                    val3 : this.props.vax3,
-                }, () => {
-                    this.addEdge2();
-                })
-            }
+                    }
+                ),
+                val3 : this.props.vax3,
+            },() =>{
+                console.log(this.state.edges);
+                console.log(this.state.currentVertexSelected);
+                console.log(this.state.nodes);
+            })
+        }
+    }
+
+    makeCurrentVertexEmpty(){
+        this.setState({
+            currentVertexSelected: [],
+        });
     }
     
 
     render() {
         let va = this.props.val;
         let va2 = this.props.val2;
-        let x = this.props.v1;
-        let y = this.props.v2;
-        let s = this.state.nodes.length;
 
         if(va === 0 & va2===0){
             // console.log('OK2')
+            //this.makeCurrentVertexEmpty();
             return (
                 <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
                     console.log(event.target.classList)}}>
@@ -118,6 +133,7 @@ class Graph extends Component {
         }
         else{
             if(va ===1  & va2===0){
+                //this.makeCurrentVertexEmpty();
                 // console.log('OK3')
                 return (
                     <div className = "App-graph" id = 'graph'>

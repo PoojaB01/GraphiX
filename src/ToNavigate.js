@@ -54,6 +54,7 @@ class ToNavigate extends Component {
         }
     }
 
+
     ChangeV1 = (event) => {
         this.setState({
             Vt1: event.target.value,
@@ -85,6 +86,7 @@ class ToNavigate extends Component {
         }, ()=>{
             console.log(this.state);
         })
+        
     }
 
     render() { 
