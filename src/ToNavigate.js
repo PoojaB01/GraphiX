@@ -75,6 +75,10 @@ class ToNavigate extends Component {
         })
     }
 
+    funcToReload(){
+        this.forceUpdate();
+    }
+
     inputEdge(event){
         event.preventDefault();
         this.setState({
@@ -85,6 +89,7 @@ class ToNavigate extends Component {
             AddEdge: 1
         }, ()=>{
             console.log(this.state);
+            this.funcToReload();
         })
         
     }
@@ -108,12 +113,12 @@ class ToNavigate extends Component {
                         this.drawEdge(event)
                     }}>Draw Edge</button>
                     <br></br>
-                    <form onSubmit = {(event) => this.inputEdge(event)}>
+                    <form>
                         <label>Vertex1</label>
                         <input type = 'number' value = {this.Vt1} onChange = {this.ChangeV1}></input>
                         <label>Vertex2</label>
                         <input type = 'number' value = {this.Vt2} onChange = {this.ChangeV2}></input>
-                        <button type = 'submit'>Add edge (V1, V2)</button>
+                        <button type = 'submit' onClick = {(event) => this.inputEdge(event)}>Add edge (V1, V2)</button>
                     </form>
                 </div>
                 <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} v1={v1} v2={v2}/>
