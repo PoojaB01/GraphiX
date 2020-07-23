@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Graph from './Graph.js'
 
+
 class ToNavigate extends Component {
     constructor(){
         super();
@@ -11,7 +12,9 @@ class ToNavigate extends Component {
             Vt1: 0,
             Vt2: 0,
             Vs1: 0,
-            Vs2: 0
+            Vs2: 0,
+            graph_input: '',
+            BFS: 0,
         }
     }
 
@@ -93,12 +96,34 @@ class ToNavigate extends Component {
         })
         
     }
+    change_input = (event) => {
+        event.preventDefault();
+        this.setState({
+            graph_input: event.target.value,
+        },()=>{
+            console.log(this.state.graph_input);
+        })
+    }
+    input_graph(event){
+        console.log(this.state.graph_input);
+    }
+
+    bfs(event){
+        console.log("BFS was called")
+        this.setState({
+            EdgeDraw: 0,
+            VertexDraw: 0,
+            AddEdge: 0,
+            BFS: 1,
+        });
+    }
 
     render() { 
 
         let va = this.state.VertexDraw;
         let va2 = this.state.EdgeDraw;
         let va3 = this.state.AddEdge;
+        let va4 = this.state.BFS;
         let v1 = this.state.Vs1;
         let v2 = this.state.Vs2;
 
@@ -120,8 +145,18 @@ class ToNavigate extends Component {
                         <input type = 'number' value = {this.Vt2} onChange = {this.ChangeV2}></input>
                         <button type = 'submit' onClick = {(event) => this.inputEdge(event)}>Add edge (V1, V2)</button>
                     </form>
+                    <form>
+                        <label>
+                            <textarea type = 'textarea' value = {this.graph_input} onChange = {this.change_input}></textarea>
+                            <br />
+                            <button type = 'submit' onClick ={(event) => this.input_graph(event)}> Make graph </button>
+                        </label>
+                    </form>
+                    <button onClick = {(event) => {
+                        this.bfs(event)
+                    }}>BFS</button>
                 </div>
-                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} v1={v1} v2={v2}/>
+                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} val4={va4} v1={v1} v2={v2}/>
             </div>
         );
     }
