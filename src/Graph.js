@@ -36,6 +36,13 @@ class Graph extends Component {
         });
     }
 
+    componentDidMount() {
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+      }
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
     addEdge3(){
         this.setState({
             currentVertexSelected: [],
