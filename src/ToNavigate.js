@@ -132,7 +132,7 @@ class ToNavigate extends Component {
             EdgeDraw: 0,
             VertexDraw: 0,
             AddEdge: 0,
-            BFS: 1,
+            BFS: 1- this.state.BFS,
         });
     }
 

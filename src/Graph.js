@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Node from './Node.js'
 import Edge from './Edge.js'
+import { Alert } from 'react-alert'
 
 class Graph extends Component {
     constructor(props){
@@ -16,9 +17,12 @@ class Graph extends Component {
             u2: this.props.v2,
             CVS: [],
             edgelist: [],
-            val4: 1
+            val4: 1,
+            bfsTree: [],
+            nonBfsTree: [],
         };
     }
+
     makeEmpty()
     {
         this.setState({
@@ -52,10 +56,10 @@ class Graph extends Component {
 
     componentDidMount() {
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
-      }
-      componentWillUnmount() {
+    }
+    componentWillUnmount() {
         clearInterval(this.interval);
-      }
+    }
 
     addEdge3(){
         this.setState({
@@ -81,7 +85,7 @@ class Graph extends Component {
                     edges: this.state.edges.concat({
                         class1: this.state.CVS[0],
                         class2: this.state.CVS[1],
-                        visited: 1,
+                        visited: 0,
                     }),
                     edgelist: newedgelist,
                 }, () => {this.addEdge3()});
@@ -132,7 +136,7 @@ class Graph extends Component {
                 class2:{
                     my_class: array[j++]
                 },
-                visited: 1,
+                visited: 0,
             });
             edgelist[parseInt(array[j-2])-1] = edgelist[parseInt(array[j-2])-1].concat([parseInt(array[j-1])-1]);
             edgelist[parseInt(array[j-1])-1] = edgelist[parseInt(array[j-1])-1].concat([parseInt(array[j-2])-1]);
@@ -158,6 +162,10 @@ class Graph extends Component {
 
         if(this.props.v1>0 & this.props.v1<=this.state.count & this.props.v2>0 & this.props.v2<=this.state.count & nextProps.vax3 === 1 & 
             !(this.props.v1 === this.props.v2)){
+                const newedgelist = this.state.edgelist;
+                newedgelist[parseInt(this.props.v1)-1] = newedgelist[parseInt(this.props.v1)-1].concat([parseInt(this.props.v2)-1]);
+                newedgelist[parseInt(this.props.v2)-1] = newedgelist[parseInt(this.props.v2)-1].concat([parseInt(this.props.v1)-1]);
+                console.log(newedgelist);
             this.setState({
                 edges: this.state.edges.concat(
                     {
@@ -167,10 +175,11 @@ class Graph extends Component {
                         class2: {
                             my_class:String(this.props.v2),
                         },
-                        visited: 1
+                        visited: 0
                     }
                 ),
                 val3 : this.props.vax3,
+                edgelist: newedgelist,
             },() =>{
                 console.log(this.state.edges);
                 console.log(this.state.CVS);
@@ -191,6 +200,7 @@ class Graph extends Component {
 
     BFS = (event) => {
         let l = event.target.classList[0];
+        alert(`BFS is called starting with vertex ${l}`);
         if( l === 'transparent' || l === 'App-edge'){
         }
         else {
@@ -200,19 +210,55 @@ class Graph extends Component {
             queue.push(l-1);
             var i,x;
             var vi = Array(this.state.nodes.length).fill(0);
+            var d = Array(this.state.nodes.length).fill(0);
             vi[l-1] = 1;
+            var newEdges = [];
             while(queue.length > 0)
             {
                 i = queue.shift();
-                console.log("this is i " + i);
+                console.log(`this is i ${i+1}`);
+                
                 for( x of this.state.edgelist[i] )
                 {
-                    if(vi[x]===0)
-                    queue.push(x);
-                    vi[x] = 1
+                    if(vi[x]===0){
+                        queue.push(x);
+                        vi[x] = 1;
+                        d[x] = d[i]+1;
+                        newEdges.push({
+                            class1: {
+                                    my_class: String(i+1),
+                                },
+                                class2: {
+                                    my_class: String(x+1),
+                                },
+                                visited: d[i]+1,
+                        });
+                    }
+                }
+            }
+            console.log("bfs done");
+            console.log(newEdges);
+        console.log(this.state.edges);
+            let y;
+            for(x of this.state.edges){
+                var flag=0;
+                for(y of newEdges){
+                    if(String(x.class1.my_class)=== String(y.class1.my_class) && String(x.class2.my_class) === String(y.class2.my_class)){
+                        flag=1;
+                        x.visited = y.visited;
+                    }
+                    if(String(x.class1.my_class)=== String(y.class2.my_class) && String(x.class2.my_class) === String(y.class1.my_class)){
+                        flag=1;
+                        x.visited= y.visited;
+                    }
+                }
+                if(flag===0){
+                    x.visited = 0;
                 }
             }
         }
+        console.log(newEdges);
+        console.log(this.state.edges);
     }
     
 
@@ -222,17 +268,16 @@ class Graph extends Component {
         let va4 = this.props.val4;
 
         if(va === 0 & va2===0){
-            //this.makeCurrentVertexEmpty();
-            // console.log(this.state.nodes);
-            if(va4===0)
-            return (
-                <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
-                    console.log(event.target.classList)}}>
-                    <div className = "transparent"></div>
-                    {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                    {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
-                </div>
-            )
+            if(va4===0){
+                return (
+                    <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
+                        console.log(event.target.classList)}}>
+                        <div className = "transparent"></div>
+                        {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
+                        {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
+                    </div>
+                )
+            }
             else return (
                 <div className = "App-graph" id = 'graph' onClick = {(event) => {this.BFS(event)}}>
                     <div className = "transparent"></div>
@@ -243,8 +288,6 @@ class Graph extends Component {
         }
         else{
             if(va ===1  & va2===0){
-                //this.makeCurrentVertexEmpty();
-                // console.log('OK3')
                 return (
                     <div className = "App-graph" id = 'graph'>
                         <div className = "transparent" onClick = {(event) => {this.makeVertexOnClick(event)}}></div>
@@ -254,7 +297,6 @@ class Graph extends Component {
                 )
             }
             else{
-                // console.log('OK4')
                 return (
                     <div className = "App-graph" id = 'graph' onClick = {(event) => {this.addEdge(event)}}>
                         <div className = "transparent"></div>
