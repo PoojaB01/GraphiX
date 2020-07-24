@@ -15,19 +15,26 @@ class Graph extends Component {
             u1: this.props.v1,
             u2: this.props.v2,
             CVS: [],
-            edgelist: []
+            edgelist: [],
+            val4: 1
         };
     }
-    makeVertex(event){
-        // console.log(event.clientX);
-        // console.log(event.clientY);
-        // console.log(this.state.val);
-        
+    makeEmpty()
+    {
+        this.setState({
+            nodes: [],
+            edges: [],
+            edgelist: [],
+            CVS: [],
+            count: 0
+        }, () => {});
+    }
+    makeVertex(X,Y) {
         this.setState({
             nodes: this.state.nodes.concat({
                 id: this.state.nodes.length + 1,
-                offsetX: event.clientX,
-                offsetY: event.clientY,
+                offsetX: X,
+                offsetY: Y,
                 visited: 1
             }),
             edgelist: this.state.edgelist.concat([[]]),
@@ -35,6 +42,12 @@ class Graph extends Component {
         }, () => {
             console.log(this.state.nodes, this.state.count);
         });
+    }
+    makeVertexOnClick(event){
+        // console.log(event.clientX);
+        // console.log(event.clientY);
+        // console.log(this.state.val);
+        this.makeVertex(event.clientX,event.clientY);
     }
 
     componentDidMount() {
@@ -90,6 +103,49 @@ class Graph extends Component {
             })
         } 
     }    
+
+    makeGraph(graph){
+        var array = graph.match(/[^\s]+/g);
+        array[0] = parseInt(array[0])
+        array[1] = parseInt(array[1])
+        console.log(array);
+        var nodes = []
+        var edges = []
+        var edgelist = []
+        for(var i = 0 ; i < array[0]; i++)
+        {
+            nodes = nodes.concat({
+                id: (i+1).toString(),
+                offsetX: 300 + i*90,
+                offsetY: 300 + i*90,
+                visited: 1
+            })
+            edgelist = edgelist.concat([[]])
+        }
+        var j=2;
+        for(i = 0; i < array[1]; i++)
+        {
+            edges = edges.concat({
+                class1: {
+                    my_class: array[j++]
+                },
+                class2:{
+                    my_class: array[j++]
+                },
+                visited: 1,
+            });
+            edgelist[parseInt(array[j-2])-1] = edgelist[parseInt(array[j-2])-1].concat([parseInt(array[j-1])-1]);
+            edgelist[parseInt(array[j-1])-1] = edgelist[parseInt(array[j-1])-1].concat([parseInt(array[j-2])-1]);
+        }
+        console.log("DONE")
+        this.setState({
+            nodes: nodes,
+            edges: edges,
+            edgelist: edgelist,
+            count: nodes.length,
+            CVS: []
+        },() => {console.log("Yippie")});
+    }
     
     componentWillReceiveProps(nextProps) {
         if(this.props.val2 === 0){
@@ -120,6 +176,10 @@ class Graph extends Component {
                 console.log(this.state.CVS);
                 console.log(this.state.nodes);
             })
+        }
+        if(nextProps.val5 === 1 && this.props.graph !== '')
+        {
+            this.makeGraph(this.props.graph);
         }
     }
 
@@ -162,8 +222,8 @@ class Graph extends Component {
         let va4 = this.props.val4;
 
         if(va === 0 & va2===0){
-            // console.log('OK2')
             //this.makeCurrentVertexEmpty();
+            // console.log(this.state.nodes);
             if(va4===0)
             return (
                 <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
@@ -187,7 +247,7 @@ class Graph extends Component {
                 // console.log('OK3')
                 return (
                     <div className = "App-graph" id = 'graph'>
-                        <div className = "transparent" onClick = {(event) => {this.makeVertex(event)}}></div>
+                        <div className = "transparent" onClick = {(event) => {this.makeVertexOnClick(event)}}></div>
                         {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
                         {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
                     </div>

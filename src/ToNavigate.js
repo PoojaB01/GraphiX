@@ -9,6 +9,7 @@ class ToNavigate extends Component {
             VertexDraw: 0,
             EdgeDraw: 0,
             AddEdge: 0,
+            GraphDraw: 0,
             Vt1: 0,
             Vt2: 0,
             Vs1: 0,
@@ -22,6 +23,7 @@ class ToNavigate extends Component {
         if(this.state.VertexDraw === 1){
             this.setState({
                 VertexDraw: 0,
+                GraphDraw: 0,
             }, () =>{
                 console.log(this.state)
             });
@@ -30,7 +32,8 @@ class ToNavigate extends Component {
             this.setState({
                 VertexDraw: 1,
                 EdgeDraw: 0,
-                AddEdge: 0
+                AddEdge: 0,
+                GraphDraw: 0,
             }, () =>{
                 console.log(this.state);
             });
@@ -42,6 +45,7 @@ class ToNavigate extends Component {
         if(this.state.EdgeDraw === 1){
             this.setState({
                 EdgeDraw: 0,
+                GraphDraw: 0,
             }, () =>{
                 console.log(this.state)
             });
@@ -50,7 +54,8 @@ class ToNavigate extends Component {
             this.setState({
                 EdgeDraw: 1,
                 VertexDraw: 0,
-                AddEdge: 0
+                AddEdge: 0,
+                GraphDraw: 0,
             }, () =>{
                 console.log(this.state);
             });
@@ -63,6 +68,7 @@ class ToNavigate extends Component {
             Vt1: event.target.value,
             EdgeDraw: 0,
             VertexDraw: 0,
+            GraphDraw: 0,
         }, ()=>{
             console.log(this.state);
         })
@@ -73,6 +79,7 @@ class ToNavigate extends Component {
             Vt2: event.target.value,
             EdgeDraw: 0,
             VertexDraw: 0,
+            GraphDraw: 0,
         }, ()=>{
             console.log(this.state);
         })
@@ -89,7 +96,8 @@ class ToNavigate extends Component {
             Vs2: this.state.Vt2,
             EdgeDraw: 0,
             VertexDraw: 0,
-            AddEdge: 1
+            AddEdge: 1,
+            GraphDraw: 0
         }, ()=>{
             console.log(this.state);
             this.funcToReload();
@@ -99,12 +107,22 @@ class ToNavigate extends Component {
     change_input = (event) => {
         event.preventDefault();
         this.setState({
+            EdgeDraw: 0,
+            VertexDraw: 0,
+            AddEdge: 0,
+            GraphDraw: 0,
             graph_input: event.target.value,
         },()=>{
             console.log(this.state.graph_input);
         })
     }
     input_graph(event){
+        this.setState({
+            EdgeDraw: 0,
+            VertexDraw: 0,
+            AddEdge: 0,
+            GraphDraw: 1,
+        })
         console.log(this.state.graph_input);
     }
 
@@ -124,6 +142,7 @@ class ToNavigate extends Component {
         let va2 = this.state.EdgeDraw;
         let va3 = this.state.AddEdge;
         let va4 = this.state.BFS;
+        let va5 = this.state.GraphDraw;
         let v1 = this.state.Vs1;
         let v2 = this.state.Vs2;
 
@@ -156,7 +175,7 @@ class ToNavigate extends Component {
                         this.bfs(event)
                     }}>BFS</button>
                 </div>
-                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} val4={va4} v1={v1} v2={v2}/>
+                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} val4={va4} val5={va5} graph={this.state.graph_input} v1={v1} v2={v2}/>
             </div>
         );
     }
