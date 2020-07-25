@@ -198,6 +198,53 @@ class Graph extends Component {
         });
     }
 
+    // performDFS = (event)
+
+    DFS = (event) => {
+        let l = event.target.classList[0];
+        alert(`DFS is called starting with vertex ${l}`);
+        if( l === 'transparent' || l === 'App-edge'){
+        }
+
+        else {
+            l = parseInt(l);
+            console.log(`Starting dfs with ${l}`);
+            var stack = []
+            stack.push(l-1);
+            var i,x;
+            var vi = Array(this.state.nodes.length).fill(0);
+            var d = Array(this.state.nodes.length).fill(0);
+            vi[l-1] = 1;
+            var newEdges = [];
+            while(stack.length > 0)
+            {
+                i = stack.pop();
+                console.log(`this is i ${i+1}`);
+                // vi[i] = 1;
+                
+                for( x of this.state.edgelist[i] )
+                {
+                    if(vi[x]===0){
+                        stack.push(x);
+                        vi[x] = 1;
+                        d[x] = d[i]+1;
+                        newEdges.push({
+                            class1: {
+                                    my_class: String(i+1),
+                                },
+                            class2: {
+                                    my_class: String(x+1),
+                                },
+                                visited: d[i]+1,
+                        });
+                    }
+                }
+            }
+            console.log("dfs done");
+            console.log(newEdges);
+        }
+    }
+
     BFS = (event) => {
         let l = event.target.classList[0];
         alert(`BFS is called starting with vertex ${l}`);
@@ -228,7 +275,7 @@ class Graph extends Component {
                             class1: {
                                     my_class: String(i+1),
                                 },
-                                class2: {
+                            class2: {
                                     my_class: String(x+1),
                                 },
                                 visited: d[i]+1,
@@ -260,7 +307,6 @@ class Graph extends Component {
         console.log(newEdges);
         console.log(this.state.edges);
     }
-    
 
     render() {
         let va = this.props.val;
@@ -268,24 +314,40 @@ class Graph extends Component {
         let va4 = this.props.val4;
 
         if(va === 0 & va2===0){
-            if(va4===0){
+            
+            if(this.props.doDFS === 1) {
                 return (
-                    <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
-                        console.log(event.target.classList)}}>
+                    <div className = "App-graph" id = 'graph' onClick = {(event) => {this.DFS(event)}}>
                         <div className = "transparent"></div>
                         {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
                         {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
                     </div>
                 )
             }
-            else return (
-                <div className = "App-graph" id = 'graph' onClick = {(event) => {this.BFS(event)}}>
-                    <div className = "transparent"></div>
-                    {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
-                    {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
-                </div>
-            )
+            else { 
+                if(va4 === 1) {
+                    return (
+                        <div className = "App-graph" id = 'graph' onClick = {(event) => {this.BFS(event)}}>
+                            <div className = "transparent"></div>
+                            {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
+                            {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
+                        </div>
+                    )
+                }
+
+                else {
+                    return (
+                        <div className = "App-graph" id = 'graph' onClick = {(event) => {console.log(this.props.val);
+                            console.log(event.target.classList)}}>
+                            <div className = "transparent"></div>
+                            {this.state.nodes.map((node,index) => <Node key = {index} node = {node} />)}
+                            {this.state.edges.map((edge, index) => <Edge key = {index} ed = {edge} />)}
+                        </div>
+                    )
+                }
+            }
         }
+
         else{
             if(va ===1  & va2===0){
                 return (

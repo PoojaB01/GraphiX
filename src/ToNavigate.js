@@ -16,6 +16,7 @@ class ToNavigate extends Component {
             Vs2: 0,
             graph_input: '',
             BFS: 0,
+            DFS: 0,
         }
     }
 
@@ -117,6 +118,7 @@ class ToNavigate extends Component {
         })
     }
     input_graph(event){
+        event.preventDefault();
         this.setState({
             EdgeDraw: 0,
             VertexDraw: 0,
@@ -133,6 +135,19 @@ class ToNavigate extends Component {
             VertexDraw: 0,
             AddEdge: 0,
             BFS: 1- this.state.BFS,
+            DFS: 0,
+        });
+    }
+
+    dfs(event){
+        console.log("DFS was called")
+
+        this.setState({
+            EdgeDraw: 0,
+            VertexDraw: 0,
+            AddEdge: 0,
+            BFS: 0,
+            DFS: 1 - this.state.DFS,
         });
     }
 
@@ -159,9 +174,9 @@ class ToNavigate extends Component {
                     <br></br>
                     <form>
                         <label>Vertex1</label>
-                        <input type = 'number' value = {this.Vt1} onChange = {this.ChangeV1}></input>
+                        <input type = 'number' value = {this.state.Vt1} onChange = {this.ChangeV1}></input>
                         <label>Vertex2</label>
-                        <input type = 'number' value = {this.Vt2} onChange = {this.ChangeV2}></input>
+                        <input type = 'number' value = {this.state.Vt2} onChange = {this.ChangeV2}></input>
                         <button type = 'submit' onClick = {(event) => this.inputEdge(event)}>Add edge (V1, V2)</button>
                     </form>
                     <form>
@@ -174,8 +189,12 @@ class ToNavigate extends Component {
                     <button onClick = {(event) => {
                         this.bfs(event)
                     }}>BFS</button>
+                    <br />
+                    <button onClick = {(event) => {
+                        this.dfs(event)
+                    }}>DFS</button>
                 </div>
-                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} val4={va4} val5={va5} graph={this.state.graph_input} v1={v1} v2={v2}/>
+                <Graph className = "App-graph grid-item" val={va} val2={va2} vax3={va3} val4={va4} val5={va5} graph={this.state.graph_input} v1={v1} v2={v2} doDFS={this.state.DFS}/>
             </div>
         );
     }
