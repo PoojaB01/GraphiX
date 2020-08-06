@@ -3,10 +3,11 @@
 This is a web portal developed using React JS.
 
 ### Functionalities of the Project:
-* Nodes are created on click at the area assigned to draw the graph.
-* Edges (unweighted) can be created either by giving input the vertices joining them or by clicking them.
-* Graph can also be given as input with number of verices, edges and all edge pairs.
-* Algorithms BFS, DFS, MST can be implemented on constructed graph or input graph, starting with the selected verted. 
+* Nodes are created by clicking on the screen.
+* An edge (unweighted) can be created either by clicking on the ends of the edge or by entering its ends as input.
+* The nodes can be dragged across the screen, and all edges with the dragged vertex shift accordingly.
+* Graph can also be given as input by entering number of verices, number of edges and the end of each edge.
+* BFS, DFS and MST algortihms can be implemented on constructed graph or input graph, starting with the selected vertex. 
 
 ### Functionalities to be implemented:
 * Adding weighted edges in the graph.
