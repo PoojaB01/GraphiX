@@ -3,17 +3,21 @@
 This is a web portal developed using React JS.
 
 ### Functionalities of the Project:
-* dsvs
+* Nodes are created on click at the area assigned to draw the graph.
+* Edges (unweighted) can be created either by giving input the vertices joining them or by clicking them.
+* Graph can also be given as input with number of verices, edges and all edge pairs.
+* Algorithms BFS, DFS, MST can be implemented on constructed graph or input graph, starting with the selected verted. 
 
-In the project directory, you can run:
+### Functionalities to be implemented:
+* Adding weighted edges in the graph.
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### To run the project:
+```
+$ git clone https://github.com/PoojaB01/GraphiX.git
+$ cd GraphiX
+$ npm start
+```
 
 
 
