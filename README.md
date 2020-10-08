@@ -2,6 +2,7 @@
 
 This is a web portal developed using React JS.
 
+
 ### Functionalities of the Project:
 * Nodes are created by clicking on the screen.
 * An edge (unweighted) can be created either by clicking on the ends of the edge or by entering its ends as input.
@@ -11,7 +12,6 @@ This is a web portal developed using React JS.
 
 ### Functionalities to be implemented:
 * Adding weighted edges in the graph.
-
 
 ### To run the project:
 ```
