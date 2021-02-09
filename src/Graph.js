@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Node from './Node.js'
 import Edge from './Edge.js'
-import { Alert } from 'react-alert'
 
 class Graph extends Component {
     constructor(props){
